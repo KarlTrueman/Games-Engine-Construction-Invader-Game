@@ -1,12 +1,11 @@
 #include "Simulation.h"
 #include "Visulisation.h"
+#include "PlayerEntity.h"
+#include "EnemyEntity.h"
+Visulisation Viz;
 
-void Simulation::Run()
+void Simulation::LoadLevel()
 {
-	Visulisation Viz;
-
-	Viz.Initialise();
-
 	//Create Sprites
 	if (!Viz.CreateSprite("Alpha", "data\\alphaThing.tga"))
 		return;
@@ -14,6 +13,15 @@ void Simulation::Run()
 		return;
 	if (!Viz.CreateSprite("Player", "data\\playerSprite.tga"))
 		return;
+
+	PlayerEntity* newPlayer = new PlayerEntity;
+	m_entityVector.push_back(newPlayer);
+}
+
+void Simulation::Run()
+{
+	Viz.Initialise();
+	LoadLevel();
 
 	float PosX = 100;
 	float PosY = 100;
@@ -23,12 +31,12 @@ void Simulation::Run()
 	{
 		Viz.ClearScreen();
 
-		Viz.RenderSprite("Background", 0, 0);
-		Viz.RenderSprite("Alpha", PosX, PosY);
+		Viz.RenderBackgroundSprite("Background", 0, 0);
+		Viz.RenderClippedSprite("Alpha", PosX, PosY);
 
 		//Testing spawning multiple of same sprite in random locations
 		for (int i = 0; i < 25; i++)
-			Viz.RenderSprite("Alpha", rand() % 1280, rand() % 768);
+			Viz.RenderClippedSprite("Alpha", rand() % 1280, rand() % 768);
 
 		//Input
 		float Normal = 1 / sqrt(2);

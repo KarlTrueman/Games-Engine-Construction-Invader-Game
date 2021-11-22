@@ -19,9 +19,9 @@ class Visulisation
 
 		bool CreateSprite(const std::string& spriteName, const std::string& filename);
 
-		void RenderSprite(const std::string& spriteName, int posX, int posY);
+		void RenderClippedSprite(const std::string& spriteName, int posX, int posY);
+		void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int posX, int posY);
 		Visulisation() = default;
-
 		void ClearScreen();
 };
 

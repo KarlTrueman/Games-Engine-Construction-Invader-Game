@@ -15,6 +15,7 @@ class Sprite
 
 	public:
 		bool Load(const std::string& filename);
-		void Render(BYTE* screen, const Rectangle& screenRect, int posX, int posY);
+		void ClippedRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY);
+		void BackgroundRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY);
 };
 

@@ -11,7 +11,7 @@ bool Sprite::Load(const std::string& filename)
 	return true;
 }
 
-void Sprite::Render(BYTE* screen, const Rectangle& screenRect, int posX, int posY)
+void Sprite::ClippedRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY)
 {
 	
 	Rectangle textureRect(0, m_tw, 0, m_th);
@@ -60,4 +60,20 @@ void Sprite::Render(BYTE* screen, const Rectangle& screenRect, int posX, int pos
 		tempTex += (textureRect.width() - clippedRect.width()) * 4;
 		screenpntr += (screenRect.width() - clippedRect.width()) * 4;
 	}
+}
+
+void Sprite::BackgroundRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY)
+{
+
+	BYTE* screenpntr{ screen + ((size_t)posX + posY * screenRect.width()) * 4 };
+	BYTE* tempTex{ m_texturePointer };
+	
+	for (int y = 0; y < m_th; y++)
+	{
+		memcpy(screenpntr, tempTex, m_tw * 4);
+		tempTex += m_tw * 4;
+		screenpntr += screenRect.width() * 4;
+	}
+
+
 }

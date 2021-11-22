@@ -32,18 +32,28 @@ bool Visulisation::CreateSprite(const std::string& spriteName, const std::string
 	return true;
 }
 
-void Visulisation::RenderSprite(const std::string& spriteName, int posX, int posY)
+void Visulisation::RenderClippedSprite(const std::string& spriteName, int posX, int posY)
 {
 	if (m_spriteMap.find(spriteName) == m_spriteMap.end())
 	{
 		return;
 	}
 	Rectangle screenRect(0, m_screenWidth, 0, m_screenHeight);
-	m_spriteMap[spriteName]->Render(m_screen, screenRect, posX, posY);
+	m_spriteMap[spriteName]->ClippedRender(m_screen, screenRect, posX, posY);
 
 }
 
-void Visulisation::ClearScreen()
+void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int posX, int posY)
+{
+	if (m_spriteMap.find(spriteName) == m_spriteMap.end())
+	{
+		return;
+	}
+	Rectangle screenRect(0, m_screenWidth, 0, m_screenHeight);
+	m_spriteMap[spriteName]->BackgroundRender(m_screen, screenRect, posX, posY);
+}
+
+	void Visulisation::ClearScreen()
 {
 	memset(m_screen, 0, m_screenWidth * m_screenHeight * 4);
 }
