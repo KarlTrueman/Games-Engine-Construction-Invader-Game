@@ -2,7 +2,6 @@
 #include "HAPI_lib.h"
 using namespace HAPISPACE;
 #include <unordered_map>
-#include "Sprite.h"
 
 class Sprite;
 
