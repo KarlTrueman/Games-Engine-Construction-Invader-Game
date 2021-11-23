@@ -23,5 +23,7 @@ class Visulisation
 		void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int posX, int posY);
 		Visulisation() = default;
 		void ClearScreen();
+		int GetScreenWidth() const { return m_screenWidth; }
+		int GetScreenHeight() const { return m_screenHeight; }
 };
 

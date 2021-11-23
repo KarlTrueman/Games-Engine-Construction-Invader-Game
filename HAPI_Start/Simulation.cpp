@@ -2,7 +2,9 @@
 #include "Visulisation.h"
 #include "PlayerEntity.h"
 #include "EnemyEntity.h"
+#include "Rectangle.h"
 Visulisation Viz;
+
 
 void Simulation::LoadLevel()
 {
@@ -22,7 +24,6 @@ void Simulation::Run()
 {
 	Viz.Initialise();
 	LoadLevel();
-
 	float PosX = 100;
 	float PosY = 100;
 
@@ -102,5 +103,25 @@ void Simulation::Run()
 
 		PosX += data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_X] / 10000;
 		PosY -= data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_Y] / 10000;
+
+		int realCentreX = PosX + 32;
+		int realCentreY = PosY + 32;
+
+		int screenCentreX = Viz.GetScreenWidth() / 2;
+		int screenCentreY = Viz.GetScreenHeight() / 2;
+		
+		float distanceFromCentre = (float)(screenCentreX - realCentreX);
+		distanceFromCentre += (float)(screenCentreY - realCentreY) * 2 ;
+
+		int distance = (int)sqrt(distanceFromCentre);
+
+		if (distance < 100)
+		{
+			HAPI.SetControllerRumble(0, distance * 655, distance * 655);
+		}
+		else
+			HAPI.SetControllerRumble(0, 0, 0);
+
 	}
+
 }

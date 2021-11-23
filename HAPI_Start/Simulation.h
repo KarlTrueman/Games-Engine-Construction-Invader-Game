@@ -2,8 +2,8 @@
 #include "HAPI_lib.h"
 #include <vector>
 using namespace HAPISPACE;
-
 class Entity;
+class Visulisation;
 
 class Simulation
 {
