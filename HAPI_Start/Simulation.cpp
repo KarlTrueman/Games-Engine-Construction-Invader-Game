@@ -104,20 +104,10 @@ void Simulation::Run()
 		PosX += data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_X] / 10000;
 		PosY -= data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_Y] / 10000;
 
-		int realCentreX = PosX + 32;
-		int realCentreY = PosY + 32;
-
-		int screenCentreX = Viz.GetScreenWidth() / 2;
-		int screenCentreY = Viz.GetScreenHeight() / 2;
-		
-		float distanceFromCentre = (float)(screenCentreX - realCentreX);
-		distanceFromCentre += (float)(screenCentreY - realCentreY) * 2 ;
-
-		int distance = (int)sqrt(distanceFromCentre);
-
-		if (distance < 100)
+		//Rumble centre screen
+		if(PosX > 200 && PosX < 500 && PosY > 200 && PosY < 500)
 		{
-			HAPI.SetControllerRumble(0, distance * 655, distance * 655);
+			HAPI.SetControllerRumble(0, 5000, 5000);
 		}
 		else
 			HAPI.SetControllerRumble(0, 0, 0);
