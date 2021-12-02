@@ -1,5 +1,15 @@
 #include "EnemyEntity.h"
+#include "Visulisation.h"
 
-void EnemyEntity::Update()
+EnemyEntity::EnemyEntity(int EnemyX, int EnemyY)
 {
+	EposX = EnemyX;
+	EposY = EnemyY;
+}
+
+void EnemyEntity::Update(Visulisation& Viz)
+{
+
+	Viz.RenderClippedSprite("Alpha", EposX, EposY);
+
 }

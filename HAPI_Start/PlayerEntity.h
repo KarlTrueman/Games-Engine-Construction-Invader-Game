@@ -4,7 +4,12 @@ class PlayerEntity :
     public Entity
 {
 public:
-    void Update() override final;
+    void Update(Visulisation& Viz) override final;
+    const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
+    const HAPI_TControllerData& GetControllerData(unsigned int controller);
+    const HAPI_TControllerData& data = HAPI.GetControllerData(0);
+    float Normal = 1 / sqrt(2);
 private:
+
 };
 

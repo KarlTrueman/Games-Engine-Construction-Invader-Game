@@ -3,7 +3,6 @@
 #include "PlayerEntity.h"
 #include "EnemyEntity.h"
 #include "Rectangle.h"
-Visulisation Viz;
 
 
 void Simulation::LoadLevel()
@@ -13,11 +12,25 @@ void Simulation::LoadLevel()
 		return;
 	if (!Viz.CreateSprite("Background", "data\\background.tga"))
 		return;
-	if (!Viz.CreateSprite("Player", "data\\playerSprite.tga"))
+	if (!Viz.CreateSprite("Player", "data\\Sprite.png"))
 		return;
 
 	PlayerEntity* newPlayer = new PlayerEntity;
 	m_entityVector.push_back(newPlayer);
+
+	EnemyEntity* newEnemy = new EnemyEntity(100, 100);
+	m_entityVector.push_back(newEnemy);
+
+	EnemyEntity* newEnemy1 = new EnemyEntity(200, 200);
+	m_entityVector.push_back(newEnemy1);
+
+	EnemyEntity* newEnemy2 = new EnemyEntity(300, 300);
+	m_entityVector.push_back(newEnemy2);
+
+	EnemyEntity* newEnemy3 = new EnemyEntity(400, 400);
+	m_entityVector.push_back(newEnemy3);
+
+
 }
 
 void Simulation::Run()
@@ -32,86 +45,10 @@ void Simulation::Run()
 	{
 		Viz.ClearScreen();
 
-		Viz.RenderBackgroundSprite("Background", 0, 0);
-		Viz.RenderClippedSprite("Alpha", PosX, PosY);
+		Viz.RenderClippedSprite("Background", 0, 0);
 
-		//Testing spawning multiple of same sprite in random locations
-		for (int i = 0; i < 25; i++)
-			Viz.RenderClippedSprite("Alpha", rand() % 1280, rand() % 768);
-
-		//Input
-		float Normal = 1 / sqrt(2);
-
-		//Keyboard
-
-		//UP LEFT
-		if (KeyData.scanCode['W'] && KeyData.scanCode['A'])
-		{
-			PosY -= Normal;
-			PosX -= Normal;
-		}
-		//UP RIGHT
-		else if (KeyData.scanCode['W'] && KeyData.scanCode['D'])
-		{
-			PosY -= Normal;
-			PosX += Normal;
-		}
-		//DOWN LEFT
-		else if (KeyData.scanCode['S'] && KeyData.scanCode['A'])
-		{
-			PosY += Normal;
-			PosX -= Normal;
-		}
-		//DOWN RIGHT
-		else if (KeyData.scanCode['S'] && KeyData.scanCode['D'])
-		{
-			PosY += Normal;
-			PosX += Normal;
-		}
-		//UP
-		else if (KeyData.scanCode['W'])
-		{
-			PosY--;
-		}
-		//DOWN
-		else if (KeyData.scanCode['S'])
-		{
-			PosY++;
-		}
-		//LEFT
-		else if (KeyData.scanCode['A'])
-		{
-			PosX--;
-		}
-		//RIGHT
-		else if (KeyData.scanCode['D'])
-		{
-			PosX++;
-		}
-
-		//None working edge of screen
-
-		//PosX = std::max(0, PosX);
-		//PosY = std::max(0, PosY);
-		//PosX = std::min((int)(width - tw), PosX);
-		//PosX = std::min((int)(height - th), PosY);
-
-
-		//Controller
-		const HAPI_TControllerData& GetControllerData(unsigned int controller);
-		const HAPI_TControllerData& data = HAPI.GetControllerData(0);
-
-		PosX += data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_X] / 10000;
-		PosY -= data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_Y] / 10000;
-
-		//Rumble centre screen
-		if(PosX > 200 && PosX < 500 && PosY > 200 && PosY < 500)
-		{
-			HAPI.SetControllerRumble(0, 5000, 5000);
-		}
-		else
-			HAPI.SetControllerRumble(0, 0, 0);
-
+		for (Entity* p : m_entityVector)
+			p->Update(Viz);
 	}
 
 }

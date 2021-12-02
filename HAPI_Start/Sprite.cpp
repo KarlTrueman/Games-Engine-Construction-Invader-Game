@@ -1,6 +1,11 @@
 #include "Sprite.h"
 #include "Rectangle.h"
 
+Sprite::~Sprite()
+{
+	delete[]m_texturePointer;
+}
+
 bool Sprite::Load(const std::string& filename)
 {
 	if (!HAPI.LoadTexture(filename, &m_texturePointer, m_tw, m_th))

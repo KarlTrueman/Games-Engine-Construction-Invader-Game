@@ -4,8 +4,12 @@ class EnemyEntity :
     public Entity
 {
 public:
-    void Update() override final;
+    EnemyEntity(int EnemyX, int EnemyY);
+    void Update(Visulisation& Viz) override final;
 
+    int EposX;
+    int EposY;
 private:
+    bool initalSpawn = true;
 };
 
