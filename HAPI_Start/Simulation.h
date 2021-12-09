@@ -10,6 +10,7 @@ class Simulation
 {
 public:
 	void Run();
+	~Simulation();
 	
 private:
 	Visulisation Viz;

@@ -12,7 +12,7 @@ void Simulation::LoadLevel()
 		return;
 	if (!Viz.CreateSprite("Background", "data\\background.tga"))
 		return;
-	if (!Viz.CreateSprite("Player", "data\\Sprite.png"))
+	if (!Viz.CreateSprite("Player", "data\\playerSprite.tga"))
 		return;
 
 	PlayerEntity* newPlayer = new PlayerEntity;
@@ -37,8 +37,6 @@ void Simulation::Run()
 {
 	Viz.Initialise();
 	LoadLevel();
-	float PosX = 100;
-	float PosY = 100;
 
 	const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
 	while (HAPI.Update())
@@ -51,4 +49,10 @@ void Simulation::Run()
 			p->Update(Viz);
 	}
 
+}
+
+Simulation::~Simulation()
+{
+	for (auto& p : m_entityVector)
+		delete p;
 }
