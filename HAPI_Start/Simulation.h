@@ -11,10 +11,10 @@ class Simulation
 public:
 	void Run();
 	~Simulation();
-	
+	std::vector<Entity*> m_entityVector;
+	void SpawnBullet(int PlayerX, int PlayerY);
 private:
 	Visulisation Viz;
 	void LoadLevel();
-	std::vector<Entity*> m_entityVector;
 };
 

@@ -1,8 +1,10 @@
 #include "PlayerEntity.h"
+#include "Bullet.h"
+#include "Simulation.h"
 
 
 
-void PlayerEntity::Update(Visulisation& Viz)
+void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 {
 
 	Viz.RenderClippedSprite("Player", PosX, PosY);
@@ -54,6 +56,14 @@ void PlayerEntity::Update(Visulisation& Viz)
 	else if (KeyData.scanCode['D'])
 	{
 		PosX++;
+	}
+	if (KeyData.scanCode[HK_SPACE])
+	{
+		Sim.SpawnBullet(PosX, PosY);
+		//Sound
+		HAPI.LoadSound("data\\laser.mp3");
+		HAPI.PlaySound("data\\laser.mp3");
+		
 	}
 
 	//None working edge of screen

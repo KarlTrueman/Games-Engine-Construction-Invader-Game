@@ -7,7 +7,7 @@ EnemyEntity::EnemyEntity(int EnemyX, int EnemyY)
 	EposY = EnemyY;
 }
 
-void EnemyEntity::Update(Visulisation& Viz)
+void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 {
 
 	Viz.RenderClippedSprite("Alpha", EposX, EposY);
