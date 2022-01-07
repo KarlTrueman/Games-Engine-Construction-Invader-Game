@@ -1,5 +1,10 @@
 #include "Entity.h"
 
+bool Entity::CheckCollision(Entity& other)
+{
+	
+}
+
 void Entity::SetIsAlive(bool SetAlive)
 {
 	IsAlive = SetAlive;

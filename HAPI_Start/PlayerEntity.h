@@ -9,8 +9,8 @@ public:
     const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
     const HAPI_TControllerData& GetControllerData(unsigned int controller);
     const HAPI_TControllerData& data = HAPI.GetControllerData(0);
-    float Normal = 1 / sqrt(2);
+    float Normal = 0;
+    Side GetSide() const override { return Side::ePlayer; }
 private:
 
 };
-

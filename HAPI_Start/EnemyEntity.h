@@ -4,13 +4,14 @@ class EnemyEntity :
     public Entity
 {
 public:
-    EnemyEntity(int EnemyX, int EnemyY);
     void Update(Visulisation& Viz, Simulation& Sim) override final;
+    EnemyEntity(int EnemyX, int EnemyY);
+    Side GetSide() const override { return Side::eEnemy; }
+    
 
 
 private:
-    bool initalSpawn = true;
-    int EposX;
-    int EposY;
+    bool InitalSpawn = true;
+    bool Toggle = false;
 };
 
