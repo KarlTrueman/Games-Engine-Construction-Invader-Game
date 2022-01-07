@@ -5,8 +5,10 @@ class EnemyEntity :
 {
 public:
     void Update(Visulisation& Viz, Simulation& Sim) override final;
-    EnemyEntity(int EnemyX, int EnemyY);
+    EnemyEntity(std::string filename) : Entity(filename) {};
     Side GetSide() const override { return Side::eEnemy; }
+    void setup() override final;
+
     
 
 

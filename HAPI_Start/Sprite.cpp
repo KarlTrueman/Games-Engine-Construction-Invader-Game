@@ -82,3 +82,11 @@ void Sprite::BackgroundRender(BYTE* screen, const Rectangle& screenRect, int pos
 
 
 }
+
+Rectangle Sprite::GetSpriteRectangle(const std::string& filename, float posX, float posY)
+{
+	Rectangle textureBorder(0, m_tw - 15, 0, m_th - 15);
+	textureBorder.Translate(posX, posY);
+
+	return textureBorder;
+}

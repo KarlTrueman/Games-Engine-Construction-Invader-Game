@@ -23,15 +23,16 @@ void Simulation::LoadLevel()
 	if (!Viz.CreateSprite("Stars", "data\\stars.jpg"))
 		return;
 	//Create Player 1 Entity
-	PlayerEntity* newPlayer = new PlayerEntity;
+	PlayerEntity* newPlayer = new PlayerEntity("Player");
 	m_entityVector.push_back(newPlayer);
+	newPlayer->setup();
 	
 	StartOfBullets = m_entityVector.size() + 1;
 	//Create all bullets
 	int TotalBullets = 25;
 	for (int x = 0; x <= TotalBullets; x++)
 	{
-		Bullet* newBullet = new Bullet;
+		Bullet* newBullet = new Bullet("Bullet");
 		m_entityVector.push_back(newBullet);
 	}
 	int EndOfBullets = m_entityVector.size();
@@ -40,8 +41,9 @@ void Simulation::LoadLevel()
 	int TotalEnemies = 5;
 	for (int x = 0; x <= TotalEnemies; x++)
 	{
-		EnemyEntity* newEnemy = new EnemyEntity(rand() % 1000, 0);
+		EnemyEntity* newEnemy = new EnemyEntity("Rock");
 		m_entityVector.push_back(newEnemy);
+		newEnemy->setup();
 	}
 
 }
@@ -52,14 +54,14 @@ void Simulation::SpawnBullet(int PlayerX, int PlayerY)
 {
 	for (int z = StartOfBullets; z < m_entityVector.size(); z++)
 	{
-		if (m_entityVector[z]->GetIsAlive() == false && FireDelayTick >= 50 )
+		if (m_entityVector[z]->GetIsAlive() == false && m_entityVector[z]->GetIsBullet() == true && FireDelayTick >= 50 )
 		{
 		m_entityVector[z]->SetIsAlive(true);
 		m_entityVector[z]->SetPos(PlayerX + 28, PlayerY);
 		m_entityVector[z]->Update(Viz, *this);
 		HAPI.PlaySound("Data\\laser.wav", volume);
 		FireDelayTick = 0;
-		break;
+		//break;
 		
 		}
 		
@@ -81,8 +83,8 @@ void Simulation::Run()
 
 		Viz.ClearScreen();
 		//Scrolling Background
-		Viz.RenderClippedSprite("Stars", 0, BGy);
-		Viz.RenderClippedSprite("Stars", 0, BG2y);
+		//Viz.RenderClippedSprite("Stars", 0, BGy);
+		//Viz.RenderClippedSprite("Stars", 0, BG2y);
 
 		BGy = BGy + (0.5* DeltaTime);
 		BG2y = BG2y + (0.5 * DeltaTime);
@@ -95,24 +97,24 @@ void Simulation::Run()
 			p->Update(Viz,*this);
 
 
-		//Loop to check collisions
+		size_t i = 0;
 		for (Entity* p : m_entityVector)
-		for (size_t i = 0; i < m_entityVector.size(); i++)
 		{
-			if (p->GetSide() != Side::eNeutral)
+			if (p->GetIsAlive() == true)
 			{
-				for (size_t j = i + 1; j < m_entityVector.size(); j++)
+				if (p->GetSide() != Side::eNeutral)
 				{
-					if (m_entityVector[i]->GetSide() != m_entityVector[j]->GetSide())
+					for (size_t j = i + 1; j < m_entityVector.size(); j++)
 					{
-						m_entityVector[i]->CheckCollision(*m_entityVector[j]);
+						if (p->CheckCollision(m_entityVector[i], m_entityVector[j]))
+						{
+
+						}
 					}
 				}
 			}
+			i++;
 		}
-			
-
-
 	}
 
 }

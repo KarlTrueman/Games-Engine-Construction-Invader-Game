@@ -2,14 +2,8 @@
 #include "Visulisation.h"
 #include "Simulation.h"
 
-EnemyEntity::EnemyEntity(int EnemyX, int EnemyY)
-{
-	PosX = EnemyX;
-	PosY = EnemyY;
-}
-
 void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
-{
+{;
 	Viz.RenderClippedSprite("Rock", PosX, PosY);
 	if (Toggle == false)
 	{
@@ -36,4 +30,11 @@ void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 			Toggle = false;
 		}
 	}
+}
+
+void EnemyEntity::setup()
+{
+	IsAlive = true;
+	PosX = rand() % 1000 + 10;
+	PosY = -100;
 }
