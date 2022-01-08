@@ -6,13 +6,16 @@
 
 bool Entity::CheckCollision(Entity* One, Entity* Two)
 {
-	Sprite Player;
-	Sprite Enemy;
+	Visulisation player;
+	Visulisation enemy;
 	Rectangle OneSprite;
 	Rectangle TwoSprite;
 
-	OneSprite = Player.GetSpriteRectangle(One->filename, One->PosX, One->PosY);
-	TwoSprite = Enemy.GetSpriteRectangle(Two->filename, Two->PosX, Two->PosY);
+	OneSprite = player.GetRectangle(One->filename);
+	TwoSprite = enemy.GetRectangle(Two->filename);
+
+	OneSprite.Translate(One->PosX, One->PosY);
+	TwoSprite.Translate(Two->PosX, Two->PosY);
 
 	if (One->GetSide() != Two->GetSide())
 	{
