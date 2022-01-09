@@ -2,7 +2,7 @@
 #include "Visulisation.h"
 #include "Simulation.h"
 
-EnemyEntity::EnemyEntity(int EnemyX, int EnemyY)
+EnemyEntity::EnemyEntity(float EnemyX, float EnemyY)
 {
 	PosX = EnemyX;
 	PosY = EnemyY;
@@ -16,7 +16,7 @@ void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 		
 		if (PosX < 1000)
 		{
-			PosX = PosX + 0.5 * Sim.GetDeltaTime();
+			PosX = PosX + 0.5f * Sim.GetDeltaTime();
 		}
 		else
 		{
@@ -28,7 +28,7 @@ void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 	{
 		if (PosX > 0)
 		{
-			PosX = PosX - 0.5 * Sim.GetDeltaTime();
+			PosX = PosX - 0.5f * Sim.GetDeltaTime();
 		}
 		else
 		{

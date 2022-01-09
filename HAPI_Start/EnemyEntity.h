@@ -5,7 +5,7 @@ class EnemyEntity :
 {
 public:
     void Update(Visulisation& Viz, Simulation& Sim) override final;
-    EnemyEntity(int EnemyX, int EnemyY);
+    EnemyEntity(float EnemyX, float EnemyY);
     Side GetSide() const override { return Side::eEnemy; }
     
 

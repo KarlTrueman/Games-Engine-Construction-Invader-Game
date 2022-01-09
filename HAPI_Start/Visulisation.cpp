@@ -32,7 +32,7 @@ bool Visulisation::CreateSprite(const std::string& spriteName, const std::string
 	return true;
 }
 
-void Visulisation::RenderClippedSprite(const std::string& spriteName, int posX, int posY)
+void Visulisation::RenderClippedSprite(const std::string& spriteName, float posX, float posY)
 {
 	if (m_spriteMap.find(spriteName) == m_spriteMap.end())
 	{
@@ -43,7 +43,7 @@ void Visulisation::RenderClippedSprite(const std::string& spriteName, int posX, 
 
 }
 
-void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int posX, int posY)
+void Visulisation::RenderBackgroundSprite(const std::string& spriteName, float posX, float posY)
 {
 	if (m_spriteMap.find(spriteName) == m_spriteMap.end())
 	{

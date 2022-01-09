@@ -19,8 +19,8 @@ class Visulisation
 
 		bool CreateSprite(const std::string& spriteName, const std::string& filename);
 
-		void RenderClippedSprite(const std::string& spriteName, int posX, int posY);
-		void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int posX, int posY);
+		void RenderClippedSprite(const std::string& spriteName, float posX, float posY);
+		void Visulisation::RenderBackgroundSprite(const std::string& spriteName, float posX, float posY);
 		Visulisation() = default;
 		void ClearScreen();
 		int GetScreenWidth() const { return m_screenWidth; }
