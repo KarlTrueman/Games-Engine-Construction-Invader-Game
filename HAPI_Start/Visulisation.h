@@ -4,7 +4,7 @@ using namespace HAPISPACE;
 #include <unordered_map>
 
 class Sprite;
-
+class Rectangle;
 class Visulisation
 {
 	private:
@@ -25,5 +25,7 @@ class Visulisation
 		void ClearScreen();
 		int GetScreenWidth() const { return m_screenWidth; }
 		int GetScreenHeight() const { return m_screenHeight; }
+
+		Rectangle GetRectangle(std::string& name);
 };
 

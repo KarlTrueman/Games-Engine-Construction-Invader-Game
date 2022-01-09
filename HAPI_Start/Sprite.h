@@ -19,5 +19,6 @@ private:
 		bool Load(const std::string& filename);
 		void ClippedRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY);
 		void BackgroundRender(BYTE* screen, const Rectangle& screenRect, int posX, int posY);
+		Rectangle GetSpriteRectangle();
 };
 

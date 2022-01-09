@@ -11,28 +11,13 @@ public:
 
 	int width() const { return right - left; }
 	int height() const { return bottom - top; }
-	void Translate(int dx, int dy)
-	{
-		left += dx;
-		right += dx;
-		top += dy;
-		bottom += dy;
-	}
+	void Translate(int dx, int dy);
 
-	void ClipTo(const Rectangle& other)
-	{
+	void ClipTo(const Rectangle& other);
 
-		if (left < other.left)
-			left = other.left;
+	bool Inside(const Rectangle& other);
+	bool Outside(const Rectangle& other);
 
-		if (right > other.right)
-			right = other.right;
-
-		if (top < other.top)
-			top = other.top;
-
-		if (bottom > other.bottom)
-			bottom = other.bottom;
-	}
+	~Rectangle();
 };
 
