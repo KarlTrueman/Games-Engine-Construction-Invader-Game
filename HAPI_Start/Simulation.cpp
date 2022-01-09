@@ -52,7 +52,7 @@ void Simulation::SpawnBullet(int PlayerX, int PlayerY)
 {
 	for (int z = StartOfBullets; z < m_entityVector.size(); z++)
 	{
-		if (m_entityVector[z]->GetIsAlive() == false && FireDelayTick >= 50 )
+		if (m_entityVector[z]->GetIsAlive() == false && m_entityVector[z]->GetIsBullet() == true && FireDelayTick >= 50 )
 		{
 		m_entityVector[z]->SetIsAlive(true);
 		m_entityVector[z]->SetPos(PlayerX + 28, PlayerY);
@@ -93,26 +93,6 @@ void Simulation::Run()
 		//Update all entitys
 		for (Entity* p : m_entityVector)
 			p->Update(Viz,*this);
-
-
-		//Loop to check collisions
-		for (Entity* p : m_entityVector)
-		for (size_t i = 0; i < m_entityVector.size(); i++)
-		{
-			if (p->GetSide() != Side::eNeutral)
-			{
-				for (size_t j = i + 1; j < m_entityVector.size(); j++)
-				{
-					if (m_entityVector[i]->GetSide() != m_entityVector[j]->GetSide())
-					{
-						m_entityVector[i]->CheckCollision(*m_entityVector[j]);
-					}
-				}
-			}
-		}
-			
-
-
 	}
 
 }

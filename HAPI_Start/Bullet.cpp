@@ -1,6 +1,11 @@
 #include "Bullet.h"
 #include "Simulation.h"
 
+Bullet::Bullet()
+{
+	IsBullet = true;
+}
+
 void Bullet::Update(Visulisation& Viz, Simulation& Sim)
 {
 	if (IsAlive == true)
