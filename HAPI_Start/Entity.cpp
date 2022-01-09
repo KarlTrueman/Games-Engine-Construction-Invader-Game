@@ -4,24 +4,14 @@
 #include "Visulisation.h"
 
 
-bool Entity::CheckCollision(Entity* One, Entity* Two)
+bool Entity::CheckCollision(Visulisation& Viz, Entity* One, Entity* Two)
 {
-	Visulisation player;
-	Visulisation enemy;
-	Rectangle OneSprite;
-	Rectangle TwoSprite;
-
-	OneSprite = player.GetRectangle(One->filename);
-	TwoSprite = enemy.GetRectangle(Two->filename);
-
-	OneSprite.Translate(One->PosX, One->PosY);
-	TwoSprite.Translate(Two->PosX, Two->PosY);
 
 	if (One->GetSide() != Two->GetSide())
 	{
 		if (One->IsAlive && Two->IsAlive)
 		{
-			if ((OneSprite.right < TwoSprite.left || OneSprite.left > TwoSprite.right) || (OneSprite.bottom < TwoSprite.top || OneSprite.top > TwoSprite.bottom))
+			if (One->PosX + Viz.GetTextureWidth(One->GetSpriteName()) < Two->PosX || One->PosX > Two->PosX + Viz.GetTextureWidth(Two->GetSpriteName()) || One->PosY + Viz.GetTextureHeght(One->GetSpriteName()) < Two->PosY|| One->PosY > Two->PosY + Viz.GetTextureHeght(Two->GetSpriteName()))
 			{
 				std::cout << "Test" << std::endl;
 				return false;
@@ -55,4 +45,9 @@ void Entity::SetPos(int EPosX, int EPosY)
 {
 	PosX = EPosX;
 	PosY = EPosY;
+}
+
+std::string Entity::GetSpriteName()
+{
+	return m_spriteName;
 }

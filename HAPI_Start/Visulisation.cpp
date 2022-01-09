@@ -58,10 +58,13 @@ void Visulisation::RenderBackgroundSprite(const std::string& spriteName, int pos
 	memset(m_screen, 0, m_screenWidth * m_screenHeight * 4);
 }
 
-	Rectangle Visulisation::GetRectangle(std::string& name)
+	int Visulisation::GetTextureWidth(const std::string& spriteName)
 	{
-		Rectangle Rec;
-		Rec = m_spriteMap[name]->GetSpriteRectangle();
-
-		return Rec;
+		return m_spriteMap[spriteName]->GetWidth();
 	}
+
+	int Visulisation::GetTextureHeght(const std::string& spriteName)
+	{
+		return m_spriteMap[spriteName]->GetHeight();
+	}
+

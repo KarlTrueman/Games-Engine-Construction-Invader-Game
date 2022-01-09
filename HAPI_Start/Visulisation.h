@@ -26,6 +26,9 @@ class Visulisation
 		int GetScreenWidth() const { return m_screenWidth; }
 		int GetScreenHeight() const { return m_screenHeight; }
 
-		Rectangle GetRectangle(std::string& name);
-};
+		int GetTextureWidth(const std::string& spriteName);
+		int GetTextureHeght(const std::string& spriteName);
 
+
+		
+};

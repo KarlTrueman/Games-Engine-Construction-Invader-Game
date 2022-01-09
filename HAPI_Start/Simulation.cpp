@@ -23,25 +23,25 @@ void Simulation::LoadLevel()
 	if (!Viz.CreateSprite("Stars", "data\\stars.jpg"))
 		return;
 	//Create Player 1 Entity
-	PlayerEntity* newPlayer = new PlayerEntity("Player");
+	PlayerEntity* newPlayer = new PlayerEntity;
 	m_entityVector.push_back(newPlayer);
 	newPlayer->setup();
 	
 	StartOfBullets = m_entityVector.size() + 1;
-	//Create all bullets
-	int TotalBullets = 25;
-	for (int x = 0; x <= TotalBullets; x++)
-	{
-		Bullet* newBullet = new Bullet("Bullet");
-		m_entityVector.push_back(newBullet);
-	}
+	////Create all bullets
+	//int TotalBullets = 25;
+	//for (int x = 0; x <= TotalBullets; x++)
+	//{
+	//	Bullet* newBullet = new Bullet;
+	//	m_entityVector.push_back(newBullet);
+	//}
 	int EndOfBullets = m_entityVector.size();
 
 	//Create all enemies
 	int TotalEnemies = 5;
 	for (int x = 0; x <= TotalEnemies; x++)
 	{
-		EnemyEntity* newEnemy = new EnemyEntity("Rock");
+		EnemyEntity* newEnemy = new EnemyEntity;
 		m_entityVector.push_back(newEnemy);
 		newEnemy->setup();
 	}
@@ -106,7 +106,7 @@ void Simulation::Run()
 				{
 					for (size_t j = i + 1; j < m_entityVector.size(); j++)
 					{
-						if (p->CheckCollision(m_entityVector[i], m_entityVector[j]))
+						if (p->CheckCollision(Viz, m_entityVector[i], m_entityVector[j]))
 						{
 
 						}

@@ -1,5 +1,9 @@
 #include "Bullet.h"
 #include "Simulation.h"
+Bullet::Bullet()
+{
+	m_spriteName = "Bullet";
+}
 void Bullet::Update(Visulisation& Viz, Simulation& Sim)
 {
 	IsBullet = true;

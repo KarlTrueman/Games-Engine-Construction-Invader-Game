@@ -12,16 +12,13 @@ enum class Side
 class Entity
 {
 protected:
-	std::string SpriteName;
-	std::string filename;
 
 public:
 
-
+	std::string m_spriteName;
 	bool IsBullet = false;
 	bool GetIsBullet() { return IsBullet; }
-	bool CheckCollision(Entity*One, Entity*Two);
-	Entity(std::string filename) : filename(filename) {};
+	bool CheckCollision(Visulisation &Viz, Entity*One, Entity*Two);
 	virtual ~Entity() = default;
 	virtual void Update(Visulisation &Viz, Simulation &Sim) = 0;
 	float PosX = 500;
@@ -33,6 +30,8 @@ public:
 	bool IsAlive = false;
 	virtual Side GetSide() const = 0;
 	virtual void setup() = 0;
+
+	virtual std::string GetSpriteName();
 
 
 private:

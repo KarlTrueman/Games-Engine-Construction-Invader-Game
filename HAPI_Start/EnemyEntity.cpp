@@ -32,6 +32,11 @@ void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 	}
 }
 
+EnemyEntity::EnemyEntity()
+{
+	m_spriteName = "Rock";
+}
+
 void EnemyEntity::setup()
 {
 	IsAlive = true;

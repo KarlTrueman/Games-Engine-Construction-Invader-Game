@@ -5,7 +5,8 @@ class PlayerEntity :
     public Entity
 {
 public:
-    PlayerEntity(std::string filename) : Entity(filename) {};
+    PlayerEntity();
+    std::string m_spriteName = "player";
     void Update(Visulisation& Viz, Simulation& Sim) override final;
     const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
    // const HAPI_TControllerData& GetControllerData(unsigned int controller);

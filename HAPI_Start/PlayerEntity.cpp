@@ -2,6 +2,11 @@
 #include "Bullet.h"
 #include "Simulation.h"
 
+PlayerEntity::PlayerEntity()
+{
+	m_spriteName = "Player";
+}
+
 void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 {
 	Normal = Sim.GetDeltaTime();
