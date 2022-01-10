@@ -2,6 +2,11 @@
 #include "Bullet.h"
 #include "Simulation.h"
 
+PlayerEntity::PlayerEntity()
+{
+	SpriteName = "Player";
+}
+
 void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 {
 	Normal = Sim.GetDeltaTime();
@@ -11,40 +16,40 @@ void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 	//Input
 	
 	//Keyboard
-	////UP LEFT
-	//if (KeyData.scanCode['W'] && KeyData.scanCode['A'])
-	//{
-	//	PosY -= 0.5 * Normal;
-	//	PosX -= 0.5 * Normal;
-	//}
-	////UP RIGHT
-	//else if (KeyData.scanCode['W'] && KeyData.scanCode['D'])
-	//{
-	//	PosY -= 0.5 * Normal;
-	//	PosX += 0.5 * Normal;
-	//}
-	////DOWN LEFT
-	//else if (KeyData.scanCode['S'] && KeyData.scanCode['A'])
-	//{
-	//	PosY += 0.5 * Normal;
-	//	PosX -= 0.5 * Normal;
-	//}
-	////DOWN RIGHT
-	//else if (KeyData.scanCode['S'] && KeyData.scanCode['D'])
-	//{
-	//	PosY += 0.5 * Normal;
-	//	PosX += 0.5 * Normal;
-	//}
-	////UP
-	//else if (KeyData.scanCode['W'])
-	//{
-	//	PosY-= 0.5 * Normal;
-	//}
-	////DOWN
-	//else if (KeyData.scanCode['S'])
-	//{
-	//	PosY+= 0.5 * Normal;
-	//}
+	//UP LEFT
+	if (KeyData.scanCode['W'] && KeyData.scanCode['A'])
+	{
+		PosY -= 0.5 * Normal;
+		PosX -= 0.5 * Normal;
+	}
+	//UP RIGHT
+	else if (KeyData.scanCode['W'] && KeyData.scanCode['D'])
+	{
+		PosY -= 0.5 * Normal;
+		PosX += 0.5 * Normal;
+	}
+	//DOWN LEFT
+	else if (KeyData.scanCode['S'] && KeyData.scanCode['A'])
+	{
+		PosY += 0.5 * Normal;
+		PosX -= 0.5 * Normal;
+	}
+	//DOWN RIGHT
+	else if (KeyData.scanCode['S'] && KeyData.scanCode['D'])
+	{
+		PosY += 0.5 * Normal;
+		PosX += 0.5 * Normal;
+	}
+	//UP
+	else if (KeyData.scanCode['W'])
+	{
+		PosY-= 0.5 * Normal;
+	}
+	//DOWN
+	else if (KeyData.scanCode['S'])
+	{
+		PosY+= 0.5 * Normal;
+	}
 	//LEFT
 	if (KeyData.scanCode['A'])
 	{
@@ -59,14 +64,6 @@ void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 	{
 		Sim.SpawnBullet(PosX, PosY);
 	}
-
-
-	//None working edge of screen
-
-	//PosX = std::max(0, PosX);
-	//PosY = std::max(0, PosY);
-	//PosX = std::min((int)(width - tw), PosX);
-	//PosX = std::min((int)(height - th), PosY);
 
 
 	//Controller
@@ -85,4 +82,15 @@ void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 			HAPI.SetControllerRumble(0, 0, 0);
 	}
 
+}
+
+std::string PlayerEntity::GetSpriteName()
+{
+	return SpriteName;
+}
+
+void PlayerEntity::Setup()
+{
+	PosX = 500;
+	PosY = 600;
 }

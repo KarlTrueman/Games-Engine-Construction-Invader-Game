@@ -4,6 +4,7 @@
 Bullet::Bullet()
 {
 	IsBullet = true;
+	SpriteName = "Bullet";
 }
 
 void Bullet::Update(Visulisation& Viz, Simulation& Sim)
@@ -17,4 +18,13 @@ void Bullet::Update(Visulisation& Viz, Simulation& Sim)
 	if (PosY < 0)
 		IsAlive = false;
 	
+}
+
+std::string Bullet::GetSpriteName()
+{
+	return SpriteName;
+}
+
+void Bullet::Setup()
+{
 }

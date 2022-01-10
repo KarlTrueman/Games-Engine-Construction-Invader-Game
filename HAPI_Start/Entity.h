@@ -22,15 +22,18 @@ public:
 	virtual ~Entity() = default;
 	virtual void Update(Visulisation &Viz, Simulation &Sim) = 0;
 
-	float PosX = 500;
-	float PosY = 675;
+	float PosX;
+	float PosY;
 	float Health = 100;
 
 	void SetPos(int EPosX, int EPosY);
 	bool IsAlive = false;
 	virtual Side GetSide() const = 0;
 
+	virtual std::string GetSpriteName();
 
+	bool CheckCollision(Visulisation& Viz, Entity& other);
+	virtual void Setup() = 0;
 private:
 	
 

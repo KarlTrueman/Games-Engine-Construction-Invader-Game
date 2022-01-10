@@ -25,6 +25,7 @@ void Simulation::LoadLevel()
 	//Create Player 1 Entity
 	PlayerEntity* newPlayer = new PlayerEntity;
 	m_entityVector.push_back(newPlayer);
+	newPlayer->Setup();
 	
 	StartOfBullets = m_entityVector.size() + 1;
 	//Create all bullets
@@ -40,8 +41,9 @@ void Simulation::LoadLevel()
 	int TotalEnemies = 5;
 	for (int x = 0; x <= TotalEnemies; x++)
 	{
-		EnemyEntity* newEnemy = new EnemyEntity(rand() % 1000, 0);
+		EnemyEntity* newEnemy = new EnemyEntity();
 		m_entityVector.push_back(newEnemy);
+		newEnemy->Setup();
 	}
 
 }
@@ -93,6 +95,29 @@ void Simulation::Run()
 		//Update all entitys
 		for (Entity* p : m_entityVector)
 			p->Update(Viz,*this);
+
+		//None working collision code
+		for (int i = 0; i < m_entityVector.size(); i++)
+		{
+			for (int j = i + 1; j < m_entityVector.size(); j++)
+			{
+				if ((m_entityVector[i]->GetSide() == Side::ePlayer && m_entityVector[j]->GetSide() == Side::ePlayer) || (m_entityVector[i]->GetSide() == Side::eEnemy && m_entityVector[j]->GetSide() == Side::eEnemy))
+				{
+
+				}
+				else
+				{
+					if (m_entityVector[i]->CheckCollision(Viz, *m_entityVector[j]))
+					{
+						int p = 0;
+					}
+				}
+			}
+		}
+
+
+
+
 	}
 
 }

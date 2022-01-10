@@ -25,5 +25,8 @@ class Visulisation
 		void ClearScreen();
 		int GetScreenWidth() const { return m_screenWidth; }
 		int GetScreenHeight() const { return m_screenHeight; }
+
+		float GetTextureWidth(const std::string& SpriteName);
+		float GetTextureHeight(const std::string& SpriteName);
 };
 

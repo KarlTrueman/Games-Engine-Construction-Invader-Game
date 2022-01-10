@@ -2,10 +2,21 @@
 #include "Visulisation.h"
 #include "Simulation.h"
 
-EnemyEntity::EnemyEntity(float EnemyX, float EnemyY)
+EnemyEntity::EnemyEntity()
 {
-	PosX = EnemyX;
-	PosY = EnemyY;
+	SpriteName = "Rock";
+}
+
+std::string EnemyEntity::GetSpriteName()
+{
+	return SpriteName;
+}
+
+void EnemyEntity::Setup()
+{
+	IsAlive = true;
+	PosX = rand() % 1000 + 10;
+	PosY = -100;
 }
 
 void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
