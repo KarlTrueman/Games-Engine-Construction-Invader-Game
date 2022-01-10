@@ -15,7 +15,7 @@ std::string EnemyEntity::GetSpriteName()
 void EnemyEntity::Setup()
 {
 	IsAlive = true;
-	PosX = rand() % 1000 + 10;
+	PosX = float (rand() % 1000 + 10.0);
 	PosY = -100;
 }
 

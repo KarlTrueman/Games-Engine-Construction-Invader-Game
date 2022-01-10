@@ -6,7 +6,7 @@
 #include "Bullet.h"
 #include <time.h>
 
-float volume = 0.1;
+float volume = 0.1f;
 void Simulation::LoadLevel()
 {
 
@@ -27,18 +27,18 @@ void Simulation::LoadLevel()
 	m_entityVector.push_back(newPlayer);
 	newPlayer->Setup();
 	
-	StartOfBullets = m_entityVector.size() + 1;
+	StartOfBullets = int (m_entityVector.size() + 1);
 	//Create all bullets
-	int TotalBullets = 25;
+	float TotalBullets = 25;
 	for (int x = 0; x <= TotalBullets; x++)
 	{
 		Bullet* newBullet = new Bullet;
 		m_entityVector.push_back(newBullet);
 	}
-	int EndOfBullets = m_entityVector.size();
+	int EndOfBullets = int(m_entityVector.size());
 
 	//Create all enemies
-	int TotalEnemies = 5;
+	float TotalEnemies = 5;
 	for (int x = 0; x <= TotalEnemies; x++)
 	{
 		EnemyEntity* newEnemy = new EnemyEntity();
@@ -50,7 +50,7 @@ void Simulation::LoadLevel()
 
 float FireDelayTick = 120;
 
-void Simulation::SpawnBullet(int PlayerX, int PlayerY)
+void Simulation::SpawnBullet(float PlayerX, float PlayerY)
 {
 	for (int z = StartOfBullets; z < m_entityVector.size(); z++)
 	{
@@ -68,6 +68,16 @@ void Simulation::SpawnBullet(int PlayerX, int PlayerY)
 	}
 }
 
+void Simulation::RestartGame()
+{
+	for (Entity* p : m_entityVector)
+		p->Setup();
+	m_entityVector[0]->SetHealth();
+	m_entityVector[0]->SetScore();
+
+
+}
+
 void Simulation::Run()
 {
 	Viz.Initialise();
@@ -76,7 +86,7 @@ void Simulation::Run()
 	while (HAPI.Update())
 	{
 		//DeltaTime
-		float time = clock();
+		float time = float (clock());
 		DeltaTime = time - OldTime;
 		OldTime = time;
 		FireDelayTick += (1 * DeltaTime);
@@ -86,12 +96,18 @@ void Simulation::Run()
 		Viz.RenderClippedSprite("Stars", 0, BGy);
 		Viz.RenderClippedSprite("Stars", 0, BG2y);
 
-		BGy = BGy + (0.5* DeltaTime);
-		BG2y = BG2y + (0.5 * DeltaTime);
+		BGy = BGy + (0.5f* DeltaTime);
+		BG2y = BG2y + (0.5f * DeltaTime);
 		if (BGy >= 768)
 			BGy = 0;
 		if (BG2y >= 0)
 			BG2y = -768;
+		//UI
+		int score = m_entityVector[0]->GetScore();
+		HAPI.RenderText(25, 82, textcol, outcol, 1, "Score: " + std::to_string(score), 32);
+		int health = m_entityVector[0]->GetHealth();
+		HAPI.RenderText(25, 50, textcol, outcol, 1, "Health: " + std::to_string(health), 32);
+
 		//Update all entitys
 		for (Entity* p : m_entityVector)
 			p->Update(Viz,*this);
@@ -109,7 +125,7 @@ void Simulation::Run()
 				{
 					if (m_entityVector[i]->CheckCollision(Viz, *m_entityVector[j]))
 					{
-						int p = 0;
+						
 					}
 				}
 			}

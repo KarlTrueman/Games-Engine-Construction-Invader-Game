@@ -12,10 +12,14 @@ public:
 	void Run();
 	~Simulation();
 	std::vector<Entity*> m_entityVector;
-	void SpawnBullet(int PlayerX, int PlayerY);
+	void SpawnBullet(float PlayerX, float PlayerY);
 	float GetDeltaTime() { return DeltaTime; };
+	void RestartGame();
 private:
+	HAPI_TColour textcol{ HAPI_TColour::RED };
+	HAPI_TColour outcol{ HAPI_TColour::RED };
 	int StartOfBullets = 0;
+
 	Visulisation Viz;
 	void LoadLevel();
 	//Time

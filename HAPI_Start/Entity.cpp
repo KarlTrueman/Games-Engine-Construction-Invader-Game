@@ -6,10 +6,31 @@ void Entity::SetIsAlive(bool SetAlive)
 	SetAlive = true;
 }
 
-void Entity::SetPos(int EPosX, int EPosY)
+void Entity::SetPos(float EPosX, float EPosY)
 {
 	PosX = EPosX;
 	PosY = EPosY;
+}
+
+void Entity::AddScore(int value)
+{
+	Score = Score + value;
+}
+
+void Entity::TakeScore(int value)
+{
+	Score = Score - value;
+}
+
+
+void Entity::AddHealth(int value)
+{
+	Health = Health + value;
+}
+
+void Entity::TakeHealth(int value)
+{
+	Health = Health - value;
 }
 
 std::string Entity::GetSpriteName()
@@ -28,6 +49,10 @@ bool Entity::CheckCollision(Visulisation& Viz, Entity& other)
 		if (other.GetSpriteName() == "Bullet")
 		{
 			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }

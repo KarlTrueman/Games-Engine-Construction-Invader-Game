@@ -9,79 +9,102 @@ PlayerEntity::PlayerEntity()
 
 void PlayerEntity::Update(Visulisation& Viz, Simulation& Sim)
 {
-	Normal = Sim.GetDeltaTime();
-	Viz.RenderClippedSprite("Player", PosX, PosY);
-
-
-	//Input
-	
-	//Keyboard
-	//UP LEFT
-	if (KeyData.scanCode['W'] && KeyData.scanCode['A'])
+	if (Health <= 0)
 	{
-		PosY -= 0.5 * Normal;
-		PosX -= 0.5 * Normal;
-	}
-	//UP RIGHT
-	else if (KeyData.scanCode['W'] && KeyData.scanCode['D'])
-	{
-		PosY -= 0.5 * Normal;
-		PosX += 0.5 * Normal;
-	}
-	//DOWN LEFT
-	else if (KeyData.scanCode['S'] && KeyData.scanCode['A'])
-	{
-		PosY += 0.5 * Normal;
-		PosX -= 0.5 * Normal;
-	}
-	//DOWN RIGHT
-	else if (KeyData.scanCode['S'] && KeyData.scanCode['D'])
-	{
-		PosY += 0.5 * Normal;
-		PosX += 0.5 * Normal;
-	}
-	//UP
-	else if (KeyData.scanCode['W'])
-	{
-		PosY-= 0.5 * Normal;
-	}
-	//DOWN
-	else if (KeyData.scanCode['S'])
-	{
-		PosY+= 0.5 * Normal;
-	}
-	//LEFT
-	if (KeyData.scanCode['A'])
-	{
-		PosX-= 0.5 * Normal;
-	}
-	//RIGHT
-	else if (KeyData.scanCode['D'])
-	{
-		PosX+= 0.5 * Normal;
-	}
-	if (KeyData.scanCode[HK_SPACE]||data.analogueButtons[HK_ANALOGUE_RIGHT_TRIGGER])
-	{
-		Sim.SpawnBullet(PosX, PosY);
+		IsAlive = false;
+		Sim.RestartGame();
 	}
 
+	if (Health > 100)
+		Health = 100;
+	if (Score <= 0)
+		Score = 0;
 
-	//Controller
+
+	if (IsAlive == true)
 	{
-		//PosX += data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_X] / 10000;
-		PosY -= data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_Y] / 10000;
+		Viz.RenderClippedSprite("Player", PosX, PosY);
 
 
 
-		//Rumble centre screen
-		if (PosX > 200 && PosX < 500 && PosY > 200 && PosY < 500)
+		//Input
+
+		//LEFT
+		if (KeyData.scanCode['A'])
 		{
-			HAPI.SetControllerRumble(0, 5000, 5000);
+			PosX -= 0.5f * float(Sim.GetDeltaTime());
 		}
-		else
-			HAPI.SetControllerRumble(0, 0, 0);
+		//RIGHT
+		else if (KeyData.scanCode['D'])
+		{
+			PosX += 0.5f * float(Sim.GetDeltaTime());
+		}
+		if (KeyData.scanCode[HK_SPACE] || data.analogueButtons[HK_ANALOGUE_RIGHT_TRIGGER])
+		{
+			Sim.SpawnBullet(PosX, PosY);
+		}
+		if (KeyData.scanCode['R'] || data.digitalButtons[HK_DIGITAL_Y])
+		{
+			Sim.RestartGame();
+		}
+		if (KeyData.scanCode[HK_RIGHT])
+		{
+			AddHealth(1);
+		}
+		if (KeyData.scanCode[HK_LEFT])
+		{
+			TakeHealth(1);
+		}
+		if (KeyData.scanCode[HK_UP])
+		{
+			AddScore(1);
+		}
+		if (KeyData.scanCode[HK_DOWN])
+		{
+			TakeScore(1);
+		}
+		//Controller - Untested since adding delta time as no controller available to test
+		{
+			PosY -= data.analogueButtons[HK_ANALOGUE_LEFT_THUMB_Y] * float(Sim.GetDeltaTime());
+		}
 	}
 
+	// unused Keyboard (Left for debugging)
+	//UP LEFT
+	//if (KeyData.scanCode['W'] && KeyData.scanCode['A'])
+	//{
+	//	PosY -= 0.5 * float (Sim.GetDeltaTime());
+	//	PosX -= 0.5 * float (Sim.GetDeltaTime());
+	//}
+	////UP RIGHT
+	//else if (KeyData.scanCode['W'] && KeyData.scanCode['D'])
+	//{
+	//	PosY -= 0.5 * float (Sim.GetDeltaTime());
+	//	PosX += 0.5 * float (Sim.GetDeltaTime());
+	//}
+	////DOWN LEFT
+	//else if (KeyData.scanCode['S'] && KeyData.scanCode['A'])
+	//{
+	//	PosY += 0.5 * float (Sim.GetDeltaTime());
+	//	PosX -= 0.5 * float (Sim.GetDeltaTime());
+	//}
+	////DOWN RIGHT
+	//else if (KeyData.scanCode['S'] && KeyData.scanCode['D'])
+	//{
+	//	PosY += 0.5 * float (Sim.GetDeltaTime());
+	//	PosX += 0.5 * float (Sim.GetDeltaTime());
+	//}
+	////UP
+	//else if (KeyData.scanCode['W'])
+	//{
+	//	PosY-= 0.5 * float (Sim.GetDeltaTime());
+	//}
+	////DOWN
+	//else if (KeyData.scanCode['S'])
+	//{
+	//	PosY+= 0.5 * float (Sim.GetDeltaTime());
+	//}
+	
 }
 
 std::string PlayerEntity::GetSpriteName()
@@ -91,6 +114,7 @@ std::string PlayerEntity::GetSpriteName()
 
 void PlayerEntity::Setup()
 {
+	IsAlive = true;
 	PosX = 500;
 	PosY = 600;
 }
