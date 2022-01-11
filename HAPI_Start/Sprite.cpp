@@ -10,7 +10,7 @@ bool Sprite::Load(const std::string& filename)
 {
 	if (!HAPI.LoadTexture(filename, &m_texturePointer, m_tw, m_th))
 	{
-		HAPI.UserMessage("Missing Background Texture", "Error");
+		HAPI.UserMessage("Missing " + filename +" Texture", "Error");
 		return false;
 	}
 	return true;

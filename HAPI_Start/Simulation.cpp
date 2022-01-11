@@ -10,7 +10,7 @@ float volume = 0.1f;
 void Simulation::LoadLevel()
 {
 
-	//HAPI.PlaySound("Data\\macky.wav", volume);
+	HAPI.PlaySound("Data\\BGMusic.wav", volume);
 	//Create Sprites
 	if (!Viz.CreateSprite("Background", "data\\background.tga"))
 		return;
@@ -82,7 +82,7 @@ void Simulation::Run()
 {
 	Viz.Initialise();
 	LoadLevel();
-	const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
+	//const HAPI_TKeyboardData& KeyData = HAPI.GetKeyboardData();
 	while (HAPI.Update())
 	{
 		//DeltaTime
