@@ -18,7 +18,9 @@ void Simulation::LoadLevel()
 		return;
 	if (!Viz.CreateSprite("Bullet", "data\\Bullet.png"))
 		return;
-	if (!Viz.CreateSprite("Rock", "data\\Rock.png"))
+	if (!Viz.CreateSprite("SpaceStation", "data\\spacestation.png"))
+		return;
+	if (!Viz.CreateSprite("Ship", "data\\Ship.png"))
 		return;
 	if (!Viz.CreateSprite("Stars", "data\\stars.jpg"))
 		return;
@@ -37,11 +39,15 @@ void Simulation::LoadLevel()
 	}
 	int EndOfBullets = int(m_entityVector.size());
 
-	//Create all enemies
+	//Spawn Boss
+	EnemyEntity* newEnemy = new EnemyEntity("SpaceStation");
+	m_entityVector.push_back(newEnemy);
+	newEnemy->SetupBoss();
+
 	float TotalEnemies = 5;
 	for (int x = 0; x <= TotalEnemies; x++)
 	{
-		EnemyEntity* newEnemy = new EnemyEntity();
+		EnemyEntity* newEnemy = new EnemyEntity("Ship");
 		m_entityVector.push_back(newEnemy);
 		newEnemy->Setup();
 	}

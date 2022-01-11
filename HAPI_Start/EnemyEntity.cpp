@@ -2,9 +2,9 @@
 #include "Visulisation.h"
 #include "Simulation.h"
 
-EnemyEntity::EnemyEntity()
+EnemyEntity::EnemyEntity(std::string Type)
 {
-	SpriteName = "Rock";
+	SpriteName = Type;
 }
 
 std::string EnemyEntity::GetSpriteName()
@@ -19,32 +19,71 @@ void EnemyEntity::Setup()
 	PosY = -100;
 }
 
+void EnemyEntity::SetupBoss()
+{
+	IsAlive = true;
+	IsBoss = true;
+	PosX = 500;
+	PosY = 200;
+}
+
 void EnemyEntity::Update(Visulisation& Viz,Simulation& Sim)
 {
-	Viz.RenderClippedSprite("Rock", PosX, PosY);
-	if (Toggle == false)
+	Viz.RenderClippedSprite(SpriteName, PosX, PosY);
+	if (IsBoss == false)
 	{
-		
-		if (PosX < 1000)
+		if (Toggle == false)
 		{
-			PosX = PosX + 0.5f * Sim.GetDeltaTime();
+
+			if (PosX < 1000)
+			{
+				PosX = PosX + 0.5f * Sim.GetDeltaTime();
+			}
+			else
+			{
+				PosY = PosY + 32;
+				Toggle = true;
+			}
 		}
-		else
+		else if (Toggle == true)
 		{
-			PosY = PosY + 32;
-			Toggle = true;
+			if (PosX > 0)
+			{
+				PosX = PosX - 0.5f * Sim.GetDeltaTime();
+			}
+			else
+			{
+				PosY = PosY + 32;
+				Toggle = false;
+			}
 		}
 	}
-	else if (Toggle == true)
+	if(IsBoss == true)
 	{
-		if (PosX > 0)
+		if (Toggle == false)
 		{
-			PosX = PosX - 0.5f * Sim.GetDeltaTime();
+
+			if (PosX < 1000)
+			{
+				PosX = PosX + 0.5f * Sim.GetDeltaTime();
+			}
+			else
+			{
+				PosY = PosY + 32;
+				Toggle = true;
+			}
 		}
-		else
+		else if (Toggle == true)
 		{
-			PosY = PosY + 32;
-			Toggle = false;
+			if (PosX > 0)
+			{
+				PosX = PosX - 0.5f * Sim.GetDeltaTime();
+			}
+			else
+			{
+				PosY = PosY - 32;
+				Toggle = false;
+			}
 		}
 	}
 }
